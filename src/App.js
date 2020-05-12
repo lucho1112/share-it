@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import SharedCard from "./components/SharedCard/SharedCard";
+import AddCard from "./components/AddCard/AddCard";
+import "./App.scss";
 
-function App() {
+const App = () => {
+  const [data, setData] = useState([]);
+
+  const handleNewData = (newCard) => {
+    let newData = [...data, newCard];
+    setData(newData);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          hello
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="main">
+      <AddCard handleNewData={handleNewData} />
+      {data.map((element) => {
+        return (
+          <SharedCard
+            title={element.title}
+            text={element.text}
+            link={element.link}
+          />
+        );
+      })}
     </div>
   );
-}
+};
 
 export default App;

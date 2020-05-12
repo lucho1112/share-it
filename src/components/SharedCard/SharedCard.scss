@@ -1,0 +1,13 @@
+.post {
+  max-width: 800px;
+  width: 100%;
+  border: 1px solid black;
+  margin: 20px auto;
+  padding: 20px;
+  .post-title {
+    margin-bottom: 10px;
+  }
+  .post-link {
+    margin-bottom: 20px;
+  }
+}
