@@ -34,36 +34,39 @@ const CreatePost = (props) => {
 
   return (
     <div className="new-post-container">
-      <form onSubmit={handleSubmit} className="new-post">
-        <label>Title</label>
-        <input
-          className="new-post-input"
-          type="text"
-          name="title"
-          onChange={handleChange}
-          value={newPost.title}
-          required
-        />
-        <label>Link</label>
-        <input
-          className="new-post-input"
-          type="text"
-          name="link"
-          onChange={handleChange}
-          value={newPost.link}
-          required
-        />
-        <label>Text</label>
-        <textarea
-          className="new-post-input"
-          type="textarea"
-          name="text"
-          onChange={handleChange}
-          value={newPost.text}
-          required
-        />
-        <input className="new-post-submit" type="submit" value="submit" />
-      </form>
+      <div className="new-post-close" onClick={props.closeExpand}></div>
+      <div className="new-post">
+        <form onSubmit={handleSubmit}>
+          <label>Title</label>
+          <input
+            className="new-post-input"
+            type="text"
+            name="title"
+            onChange={handleChange}
+            value={newPost.title}
+            required
+          />
+          <label>Link</label>
+          <input
+            className="new-post-input"
+            type="text"
+            name="link"
+            onChange={handleChange}
+            value={newPost.link}
+            required
+          />
+          <label>Text</label>
+          <textarea
+            className="new-post-input"
+            type="textarea"
+            name="text"
+            onChange={handleChange}
+            value={newPost.text}
+            required
+          />
+          <input className="new-post-submit" type="submit" value="submit" />
+        </form>
+      </div>
     </div>
   );
 };
