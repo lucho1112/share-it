@@ -1,7 +1,7 @@
 import React from "react";
-import "./SharedCard.scss";
+import "./Post.scss";
 
-const SharedCard = (props) => {
+const Post = (props) => {
   return (
     <div className="post">
       <h2 className="post-title">{props.title}</h2>
@@ -13,4 +13,4 @@ const SharedCard = (props) => {
   );
 };
 
-export default SharedCard;
+export default Post;
