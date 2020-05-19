@@ -7,6 +7,7 @@ const CreatePost = (props) => {
     title: "",
     text: "",
     link: "",
+    id: "",
   };
   const [newPost, setNewPost] = useState(initialState);
 
@@ -14,14 +15,14 @@ const CreatePost = (props) => {
     const newPostData = {
       ...newPost,
       [event.target.name]: event.target.value,
+      id: event.target.name === "title" ? event.target.value : newPost.id,
     };
     setNewPost(newPostData);
   };
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(newPost);
     props.createNewPost(newPost);
-    props.closeExpand();
-    setNewPost(initialState);
     axios
       .post("https://share-it-620ef.firebaseio.com/posts.json", newPost)
       .then(function (response) {
@@ -30,6 +31,8 @@ const CreatePost = (props) => {
       .catch(function (error) {
         console.log(error);
       });
+    setNewPost(initialState);
+    props.closeExpand();
   };
 
   return (

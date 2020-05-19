@@ -9,6 +9,7 @@ const Post = (props) => {
         {props.link}
       </a>
       <div className="post-text">{props.text}</div>
+      <button onClick={props.deletePost}>Delete</button>
     </div>
   );
 };

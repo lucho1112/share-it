@@ -18,7 +18,6 @@ const App = () => {
       for (let key in response.data) {
         fetchedPosts.push({
           ...response.data[key],
-          id: key,
         });
       }
       setPosts(fetchedPosts);
@@ -28,6 +27,16 @@ const App = () => {
   const createNewPost = (newPost) => {
     let updatedPosts = [...posts, newPost];
     setPosts(updatedPosts);
+  };
+  const deletePost = (postId) => {
+    const updatedPosts = posts.filter((e) => e.id !== postId);
+    console.log(updatedPosts);
+    axios.put(
+      "https://share-it-620ef.firebaseio.com/posts/.json",
+      updatedPosts
+    );
+    let newPosts = posts.filter((e) => e.id !== postId);
+    setPosts(newPosts);
   };
   const openExpand = () => {
     setExpand(true);
@@ -46,12 +55,14 @@ const App = () => {
         </div>
       )}
       {posts.map((post) => {
+        console.log(post.id);
         return (
           <Post
             key={post.id}
             title={post.title}
             text={post.text}
             link={post.link}
+            deletePost={() => deletePost(post.id)}
           />
         );
       })}
