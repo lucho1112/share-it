@@ -1,7 +1,7 @@
 import React from "react";
-import "./SharedCard.scss";
+import "./Post.scss";
 
-const SharedCard = (props) => {
+const Post = (props) => {
   return (
     <div className="post">
       <h2 className="post-title">{props.title}</h2>
@@ -9,8 +9,9 @@ const SharedCard = (props) => {
         {props.link}
       </a>
       <div className="post-text">{props.text}</div>
+      <button onClick={props.deletePost}>Delete</button>
     </div>
   );
 };
 
-export default SharedCard;
+export default Post;

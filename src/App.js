@@ -1,25 +1,68 @@
-import React, { useState } from "react";
-import SharedCard from "./components/SharedCard/SharedCard";
-import AddCard from "./components/AddCard/AddCard";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+
+import Post from "./components/Post/Post";
+import CreatePost from "./components/CreatePost/CreatePost";
 import "./App.scss";
 
 const App = () => {
-  const [data, setData] = useState([]);
+  const [posts, setPosts] = useState([]);
+  const [expand, setExpand] = useState(false);
 
-  const handleNewData = (newCard) => {
-    let newData = [...data, newCard];
-    setData(newData);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const response = await axios(
+        "https://share-it-620ef.firebaseio.com/posts.json"
+      );
+      let fetchedPosts = [];
+      for (let key in response.data) {
+        fetchedPosts.push({
+          ...response.data[key],
+        });
+      }
+      setPosts(fetchedPosts);
+    };
+    fetchPosts();
+  }, []);
+  const createNewPost = (newPost) => {
+    let updatedPosts = [...posts, newPost];
+    setPosts(updatedPosts);
+  };
+  const deletePost = (postId) => {
+    const updatedPosts = posts.filter((e) => e.id !== postId);
+    console.log(updatedPosts);
+    axios.put(
+      "https://share-it-620ef.firebaseio.com/posts/.json",
+      updatedPosts
+    );
+    let newPosts = posts.filter((e) => e.id !== postId);
+    setPosts(newPosts);
+  };
+  const openExpand = () => {
+    setExpand(true);
+  };
+  const closeExpand = () => {
+    setExpand(false);
   };
 
   return (
     <div className="main">
-      <AddCard handleNewData={handleNewData} />
-      {data.map((element) => {
+      {expand ? (
+        <CreatePost createNewPost={createNewPost} closeExpand={closeExpand} />
+      ) : (
+        <div className="expand" onClick={openExpand}>
+          Create New Post
+        </div>
+      )}
+      {posts.map((post) => {
+        console.log(post.id);
         return (
-          <SharedCard
-            title={element.title}
-            text={element.text}
-            link={element.link}
+          <Post
+            key={post.id}
+            title={post.title}
+            text={post.text}
+            link={post.link}
+            deletePost={() => deletePost(post.id)}
           />
         );
       })}
