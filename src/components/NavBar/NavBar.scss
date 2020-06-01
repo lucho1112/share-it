@@ -1,0 +1,21 @@
+.nav {
+  display: block;
+  background-color: white;
+  z-index: 999;
+  padding: 0 10px;
+  position: fixed;
+  top: o;
+  border-bottom: 1px solid black;
+  width: 100%;
+  .nav-item {
+    display: inline-flex;
+    cursor: pointer;
+    height: 40px;
+    padding: 10px;
+    margin: 0 10px;
+  }
+  .nav-item:hover {
+    background-color: black;
+    color: white;
+  }
+}
